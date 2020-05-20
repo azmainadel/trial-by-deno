@@ -7,7 +7,7 @@ import {
     quotes
 } from "./quotes.ts";
 
-const app = new Application({}); 
+const app = new Application({ hostname: "192.168.0.113"}); 
 const router = new Router();
 
 app.use("/api", router);
