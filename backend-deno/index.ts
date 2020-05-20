@@ -7,6 +7,7 @@ import {
     quotes
 } from "./quotes.ts";
 
+// use your local IP address as hostname
 const app = new Application({ hostname: "192.168.0.113"}); 
 const router = new Router();
 
