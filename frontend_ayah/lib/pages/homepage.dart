@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:ayah/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:share/share.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,17 +30,25 @@ class HomePage extends StatelessWidget {
                             [
                               "${element["quoteText"]}"
                                   .text
-                                  .bold
                                   .center
                                   .white
-                                  .xl3
+                                  .xl5
                                   .make(),
+//                              "${element["quoteSource"]}"
+//                                  .text
+//                                  .center
+//                                  .white
+//                                  .xl
+//                                  .make(),
                               IconButton(
                                 icon: Icon(
                                   Icons.share,
                                   color: Colors.white,
                                 ),
                                 iconSize: 30.0,
+                                onPressed: () {
+                                  Share.share("${element["quoteText"]}");
+                                },
                               )
                             ],
                             crossAlignment: CrossAxisAlignment.center,
