@@ -1,6 +1,11 @@
-import { serve } from "https://deno.land/std@0.50.0/http/server.ts";
-const s = serve({ port: 8000 });
-console.log("http://localhost:8000/");
-for await (const req of s) {
-    req.respond({ body: "Hello World\n" });
-}
+import { Application, Router } from "https://deno.land/x/denotrain@v0.4.4/mod.ts";
+
+const app = new Application({});
+
+const router  = new Router();
+
+app.get("/", (ctx) => {
+    return "Hello World";
+});
+
+await app.run(); 
