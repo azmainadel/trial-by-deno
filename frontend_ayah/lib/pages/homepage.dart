@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:ayah/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:velocity_x/velocity_x.dart';
@@ -13,12 +15,49 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              return VxSwiper(
-                items: snapshot.data
-                    .map<Widget>(
-                      (element) => "${element["quoteText"]}".text.make(),
-                    )
-                    .toList(),
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  final color = backGroundColors[Random().nextInt(7)];
+
+                  return VxSwiper(
+                    scrollDirection: Axis.horizontal,
+                    height: context.screenHeight,
+                    viewportFraction: 1.0,
+                    items: snapshot.data
+                        .map<Widget>(
+                          (element) => VStack(
+                            [
+                              "${element["quoteText"]}"
+                                  .text
+                                  .bold
+                                  .center
+                                  .white
+                                  .xl3
+                                  .make(),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.share,
+                                  color: Colors.white,
+                                ),
+                                iconSize: 30.0,
+                              )
+                            ],
+                            crossAlignment: CrossAxisAlignment.center,
+                            alignment: MainAxisAlignment.spaceAround,
+                          )
+                              .animatedBox
+                              .p16
+                              .color(color)
+                              .make()
+                              .w(context.screenWidth)
+                              .h(context.screenHeight),
+                        )
+                        .toList(),
+                    onPageChanged: (index) {
+                      setState(() {});
+                    },
+                  );
+                },
               );
             }
             return "No data found".text.makeCentered();
